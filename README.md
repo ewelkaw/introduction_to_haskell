@@ -1,6 +1,18 @@
-### Introduction to haskell programming based on book `Programming in Haskell` by `Graham Hutton`. 
+# Introduction to haskell programming, based on book `Programming in Haskell` by `Graham Hutton`. 
 
-### 1. **Instalation:**
+## **Agenda:**
+1. Basic concepts:
+    - [Introduction](#-1-Introduction)
+    - [Types and classes](#-2-Types-and-classes)
+    - [Defining functions](#-3-Functions)
+    - [List comprehensions](#-4-List-comprehensions)
+    - [Recursive functions](#-5-Recursive-functions)
+    - [Higher-order functions](#-6-Higher-order-functions)
+    - [Declaring types and classes](#-7-Declaring-types-and-classes)
+    - [The countdown problem](#-8-The-countdown-problem)
+
+## 1. Introduction
+- **Instalation:**
 ```curl https://get-ghcup.haskell.org -sSf | sh```
 
 and paste at the bottom of ~/.bash_profile line:
@@ -13,23 +25,13 @@ and in new terminal:
 
 ghci - Glasgow Haskell Compiler interactive interpreter
 
-### 2. **Agenda:**
-1. Basic concepts:
-    - Introduction
-    - First steps
-    - Types and classes
-    - Defining functions
-    - List comprehensions
-    - Recursive functions 
-    - Higher-order functions
-    - Declaring types and classes
-    - The countdown problem
-
-## 3. BASIC INFO
+- **Basic Info**
 - ghci sctipt.hs - imports script
 - :reload - reloads loaded script
+- :l script_name.hs - loading script from ghci
+- :type name - shows the type
 
-## 4. HASKELL KEYWORDS
+- **Haskell keywords**
 - case
 - class 
 - data
@@ -53,10 +55,10 @@ ghci - Glasgow Haskell Compiler interactive interpreter
 - type
 - where
 
-## 5. Tabs
+- **Tabs**
 It is not recommended to use tabs but if someone prefer to do so we should keep in mind that Haskell assumes that tab stops are 8 character wide.
 
-## 6. Comments
+- **Comments**
 ```
 -- comment that will be ignored by the compiler
 ```
@@ -68,7 +70,7 @@ comments
 -}
 ```
 
-## 7. TYPES
+## 2. Types and classes
 - **Bool:** True, False
 
 - **Char:** single character
@@ -215,7 +217,7 @@ length [sin, cos, tan]
     7.0 / 2.0
     recip 2.0
     ```
-## 8. Functions
+## 3. Functions
 ```
 even :: Integral a -> a -> a Bool
 even n = n 'mod' 2 == 0
@@ -290,7 +292,7 @@ odds n = map (\x -> x * 2 + 1) [0 .. n-1]
 (*2)    -->     \x -> x * 2
 (/2)    -->     \x -> x / 2
 ```
-## 9. List comprehensions
+## 4. List comprehensions
 It is used to construct new sets from existing sets.
 ```
 [x^2 | x <- [1..5]]
@@ -363,11 +365,11 @@ count 'x' "abcdex"
 - **Cesar cipher** 
 ```ghci cesar.hs```
 
-## 10. Recursive functions
+## 5. Recursive functions
 
 
-## 12. Higher-order functions
+## 6. Higher-order functions
 
-## 13. Declaring types and classes
+## 7. Declaring types and classes
 
-## 14. The countdown problem
+## 8. The countdown problem
