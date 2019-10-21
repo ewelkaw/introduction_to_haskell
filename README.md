@@ -1,15 +1,16 @@
-# Introduction to haskell programming, based on book `Programming in Haskell` by `Graham Hutton`. 
+# Introduction to haskell programming.
+## Based on book `Programming in Haskell` by `Graham Hutton`. 
 
 ## **Agenda:**
 1. Basic concepts:
-    - [Introduction](#-1-Introduction)
-    - [Types and classes](#-2-Types-and-classes)
-    - [Defining functions](#-3-Functions)
-    - [List comprehensions](#-4-List-comprehensions)
-    - [Recursive functions](#-5-Recursive-functions)
-    - [Higher-order functions](#-6-Higher-order-functions)
-    - [Declaring types and classes](#-7-Declaring-types-and-classes)
-    - [The countdown problem](#-8-The-countdown-problem)
+    - [Introduction](#1-Introduction)
+    - [Types and classes](#2-Types-and-classes)
+    - [Defining functions](#3-Functions)
+    - [List comprehensions](#4-List-comprehensions)
+    - [Recursive functions](#5-Recursive-functions)
+    - [Higher-order functions](#6-Higher-order-functions)
+    - [Declaring types and classes](#7-Declaring-types-and-classes)
+    - [The countdown problem](#8-The-countdown-problem)
 
 ## 1. Introduction
 - **Instalation:**
@@ -26,34 +27,35 @@ and in new terminal:
 ghci - Glasgow Haskell Compiler interactive interpreter
 
 - **Basic Info**
-- ghci sctipt.hs - imports script
-- :reload - reloads loaded script
-- :l script_name.hs - loading script from ghci
-- :type name - shows the type
+    - ghci sctipt.hs - imports script
+    - :reload - reloads loaded script
+    - :l script_name.hs - loading script from ghci
+    - :type name - shows the type
+
 
 - **Haskell keywords**
-- case
-- class 
-- data
-- default
-- deriving
-- do 
-- else 
-- foreign
-- if 
-- import
-- in 
-- infix
-- infixl
-- infixr
-- instalce
-- let
-- module
-- newtype
-- of
-- then
-- type
-- where
+    - case
+    - class 
+    - data
+    - default
+    - deriving
+    - do 
+    - else 
+    - foreign
+    - if 
+    - import
+    - in 
+    - infix
+    - infixl
+    - infixr
+    - instalce
+    - let
+    - module
+    - newtype
+    - of
+    - then
+    - type
+    - where
 
 - **Tabs**
 It is not recommended to use tabs but if someone prefer to do so we should keep in mind that Haskell assumes that tab stops are 8 character wide.
@@ -366,7 +368,6 @@ count 'x' "abcdex"
 ```ghci cesar.hs```
 
 ## 5. Recursive functions
-
 
 ## 6. Higher-order functions
 
