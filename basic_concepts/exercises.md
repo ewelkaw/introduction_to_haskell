@@ -60,7 +60,7 @@ n = a `div` length xs where { a = 10; xs = [1,2,3,4,5]};
 ### The library function `last` selects the last element of non-empty list; for example:
 ``` last [1,2,3,4,5] -> 5```
 
-how this function can be defined in terms of the library functions that you know.
+### how this function can be defined in terms of the library functions that you know.
 
 ```
 my_last xs = xs !! (length xs -1)
@@ -68,10 +68,10 @@ my_last xs = xs !! (length xs -1)
 TRY BETTER: ```ghci last_implementation.hs ```
 
 
-### The library function `init` remove the last element of non-empty list; for example:
-``` last [1,2,3,4,5] -> [1,2,3,4]```
+### The library function `init` remove the last element of non-empty list; for example: 
+``` last [1,2,3,4,5] -> [1,2,3,4]``` 
 
-how this function can be defined in terms of the library functions that you know.
+### how this function can be defined in terms of the library functions that you know.
 
 ```
 my_init xs = reverse (drop 1 (reverse xs))
@@ -200,5 +200,36 @@ luhnDouble x | x > 4        = double x - 9
 
 luhn x y z v =  (luhnDouble x + y + luhnDouble z + v)`mod` 10 == 0
 ```
-
-
+### Using a list comprehension, give an expression that clculates the sum of 100 first integer squares.
+```
+sum [x^2 | x <- [1..100]]
+```
+### Suppose that a coordinate grid of size `m x n` is given by the list of pairs `(x, y)` of integers that `0 <= x <= m` and `0 <= y <= n` using a comprehensio defina a function `grid :: Int -> Int -> [(Int, Int)]`
+```
+grid m n = [(x, y) | x <- [0..m], y <- [0..n]] 
+grid 1 2
+```
+### Using the list cmprehension and the function grid above, define a function `square :: Int -> [(Int, Int)]`that returns a coordinate square of a size n, excluding the diagonal from (0,0) to (n,n)
+```
+square n = [(x, y) | x y <- grid n n, x /= y]
+square 2
+```
+### In a similar way to the function length show how the library function `replicate :: Int -> a -> [a]` that produces a list of identical elements can be defined using a list comprehension
+```
+replicate n m = [m | _ <- [1..n]]
+```
+### A triple (x,y,z) of positive integers in Pythagorean if it satisfies the equation `a^2 + b^2 = c^2`. Using a list comprehension with three generators, define a function `pyths :: Int -> [(Int, Int, Int)]` that returns the list of all such triples whose componenets are at most a given limit
+```
+pyths m = [(a, b, c) | a <- [1..m], b <- [1..m], c <- [1..m], a^2 + b^2 == c^2] 
+```
+### A positive integer is perfect if it equals the sum of all of its factors, excluding the number itself. Using a list comprehension and the function factors, define a function `perfects :: Int -> [Int]` that returns the list of all persect numbers up to a given limit
+```
+factors n = [x | x <- [1..n], n `mod` x == 0]
+perfects n = [x | x <- [1..n], sum (factors x) - x == x]
+perfects 500
+```
+### Prepare a function `scalarproduct :: [Int] -> Int` which produces a scalar product of two lists
+```
+scalarproduct x y = sum [a * b | (a, b) <- zip x y]
+scalarproduct [1,2,3] [4,5,6]
+```

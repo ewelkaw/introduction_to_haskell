@@ -1,3 +1,5 @@
+-- Prepare function which calculate average value from list of integers
+
 average ns = sum ns `div` length ns
 
 -- ghci average.hs

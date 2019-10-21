@@ -290,3 +290,84 @@ odds n = map (\x -> x * 2 + 1) [0 .. n-1]
 (*2)    -->     \x -> x * 2
 (/2)    -->     \x -> x / 2
 ```
+## 9. List comprehensions
+It is used to construct new sets from existing sets.
+```
+[x^2 | x <- [1..5]]
+
+[(x,y) | x <- [1,2,3], y <- [4,5]]
+
+-- same but different order
+[(x,y) | y <- [4,5], x <- [1,2,3]]
+
+[(x,y) | x <- [1..3], y <- [x..5]]
+
+concat :: [[a]] -> [a]
+concat xss = [x | xs <- xss, x <- xs]
+<!-- concat [[1,2],[3,4]] -->
+
+firsts :: [(a, b)] -> [a]
+firsts ps = [x | (x,_) <- ps]
+<!-- firsts [(1,3)] -->
+
+length :: Num a => [t] -> a
+length xs = sum [1 | _ <- xs]
+<!-- length [1, 2, 3] -->
+```
+- **Guards** list comprehensions can also use logical expressions called `guards`. If the guard is True, then the current values are retained, if it is False then they are discarded.
+```
+factors :: Integral a => a -> [a]
+factors n = [x | x <- [1..n], n `mod` x == 0]
+<!-- factors 8 -->
+
+prime :: Integral a => a -> Bool
+prime n = factors n == [1,n]
+prime 7
+
+primes :: Integral a => a -> [a]
+primes n = [x | x <- [2..n], prime x]
+primes 40
+
+find :: Eq a1 => a1 -> [(a1, a2)] -> [a2]
+find k t = [v | (k', v) <- t, k == k']
+find 'b' [('a',1), ('b', 3), ('c',8), ('b', 9),('a', 3)]
+```
+- **The zip function** the library function that produces newlist by paring successive elements from two existing lists untill either or both lists are exhausted
+```
+zip ['a', 'b', 'c'] [1,2,3,4]
+
+pairs xs = zip xs (tail xs)
+pairs [1,2,3,4]
+
+sorted xs = and [x <= y | (x, y) <- pairs xs]
+sorted [1,2,3,4]
+sorted [1,3,2,4]
+
+positions x xs = [i | (x', i) <- zip xs [0..], x == x']
+positions False [True, False, True, False]
+```
+- **String comprehensions** strings in fact are lists of characters 
+```'abc' :: String -> ['a','b','c'] :: [Char]```
+```
+"abcde" !! 2
+take 3 "abcde"
+length "abcde"
+zip "abcde" [2,3,5,6,7]
+
+lowers xs = length [x | x <-xs, x >= 'a' && x <= 'z']
+lowers "aaaa"
+
+count x xs = length [x' | x' <- xs, x == x']
+count 'x' "abcdex"
+```
+- **Cesar cipher** 
+```ghci cesar.hs```
+
+## 10. Recursive functions
+
+
+## 12. Higher-order functions
+
+## 13. Declaring types and classes
+
+## 14. The countdown problem

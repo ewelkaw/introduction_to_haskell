@@ -1,3 +1,5 @@
+-- Prepare function which doubles given value.
+
 double x = x + x
 quadruple x = double ( double x)
 

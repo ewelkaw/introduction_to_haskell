@@ -1,3 +1,5 @@
+-- Prepare quick sort algorithm.
+
 qsort []     = []
 qsort (x:xs) = qsort smaller ++ [x] ++ qsort larger
                where
