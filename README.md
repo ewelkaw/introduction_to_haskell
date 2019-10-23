@@ -403,7 +403,7 @@ isort (x:xs) = insert x (isort xs)
 -- isort [2,3,4,1]
 ```
 - **Multiple arguments**
-```
+```haskell
 zip :: [a] -> [b] -> [(a, b)]
 zip [] _ = []
 zip _ [] = []
@@ -414,7 +414,7 @@ drop _ [] = []
 drop n (_:xs) = drop (n-1) xs
 ```
 - **Multiple recursion**
-```
+```haskell
 fib 0 = 0 
 fib 1 = 1
 fib n = fib (n - 2) + fib (n -1)
@@ -426,7 +426,7 @@ qsort (x:xs) = qsort smaller ++ [x] ++ qsort larger
                     larger = [b | b <- xs, b > x]
 ```
 - **Mutual recursion**
-```
+```haskell
 even 0 = True
 even n = odd (n -1)
 
