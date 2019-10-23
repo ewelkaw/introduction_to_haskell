@@ -504,7 +504,113 @@ Lets consider example of `drop` function
     drop n (x:xs) = drop (n-1) xs
     ```
 ## 6. Higher-order functions
+Higher-order functions are functions that take a function as an argument or return a function as a result.
+- **Processing lists**
+    - map
+    ```haskell
+    map :: (t -> a) -> [t] -> [a]
+    map f xs = [f x | x <- xs]
 
+    <!-- map (+1) [1,2,3,4] -->
+    <!-- map even [1,2,3,4,5] -->
+    <!-- map reverse ["abc", "def", "ghi"] -->
+    ```
+    - filter
+    ```haskell
+    filter :: (a -> Bool) -> [a] -> [a]
+    filter p xs = [x | x <- xs, p x]
+    
+    <!-- filter even [1,2,3,4] -->
+    <!-- filter (>5) [1,2,3,4] -->
+    <!-- filter (/= ' ') "abc def ghi" -->
+    ```
+    - map and filter
+    ```haskell
+    sumsqeven ns = sum (map (^2) (filter even ns))
+
+    <!-- sumsqeven [1,2,3,4] -->
+    ```
+    - all
+    ```haskell
+    all even [2,4,6,8]
+    ```
+    - any
+    ```haskell
+    any odd [2,4,6,8]
+    ```
+    - takeWhile
+    ```haskell
+    takeWhile even [2,4,6,7,8]
+    ```
+    - dropWhile
+    ```haskell
+    dropWhile odd [2,4,6,7,8]
+    ```
+- **The foldr function** 
+
+Many functions can be defined as below, so empty list to v and any other non-empty list to an operator `#` applied to the head of the list and then recursively to the rest of the list. Here we can use fold right.
+```haskell
+sum []      = 0
+sum (x:xs)  = x + sum xs
+sum = foldr (+) 0
+sum xs = foldr (+) 0 xs
+
+product []      = 1
+product (x:xs)  = x * product xs
+product = foldr (*) 1
+product xs = foldr (*) 1 xs
+
+or [] = False
+or (x:xs) = x || or xs
+or = foldr (||) False
+or xs = foldr (||) False xs
+
+and [] = True
+and (x:xs) = x && or xs
+and = foldr (&&) True
+and xs = foldr (&&) True xs
+
+length = foldr (_ \n -> 1+n) 0
+
+snoc x xs = xs ++ [x]
+reverse = foldr snoc []
+```
+- **The foldl function**
+
+Here we can use fold left.
+```haskell
+sum []      = 0
+sum (x:xs)  = x + sum xs
+sum = foldl (+) 0
+sum xs = foldl (+) 0 xs
+
+product []      = 1
+product (x:xs)  = x * product xs
+product = foldl (*) 1
+product xs = foldl (*) 1 xs
+
+or [] = False
+or (x:xs) = x || or xs
+or = foldl (||) False
+or xs = foldl (||) False xs
+
+and [] = True
+and (x:xs) = x && or xs
+and = foldl (&&) True
+and xs = foldl (&&) True xs
+
+length = foldl (\n _ -> n+1) 0
+reverse = foldl (\xs x -> x:xs) 
+```
+- **The composition operator**
+```
+```
+- **Binary string transmitter**
+```
+```
+- **Voting algorithms**
+```
+```
 ## 7. Declaring types and classes
 
 ## 8. The countdown problem
