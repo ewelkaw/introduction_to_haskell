@@ -1,3 +1,14 @@
+## **Agenda:**
+1. Basic concepts:
+    - [Introduction](#1-INTRODUCTION)
+    - [Types and classes](#2-TYPES-AND-CLASSES)
+    - [Defining functions](#3-DEFINING-FUNCTIONS)
+    - [List comprehensions](#4-LIST-COMPREHENSIONS)
+    - [Recursive functions](#5-RECURSIVE-FUNCTIONS)
+    - [Higher-order functions](#6-HIGHER-ORDER-FUNCTIONS)
+    - [Declaring types and classes](#7-DECLARING-TYPES-AND-CLASSES)
+    - [The countdown problem](#8-THE-COUNTDOWN-PROBLEM)
+
 Haskell has lots of build-in functions which are defined in library called `standard prelude`
 
 ###  Functions that operates on lists
@@ -56,6 +67,7 @@ d = a * 2
 ```
 n = a `div` length xs where { a = 10; xs = [1,2,3,4,5]};
 ```
+## 1. INTRODUCTION
 
 ### The library function `last` selects the last element of non-empty list; for example:
 ``` last [1,2,3,4,5] -> 5```
@@ -75,6 +87,7 @@ TRY BETTER: ```ghci last_implementation.hs ```
 ```
 my_init xs = reverse (drop 1 (reverse xs))
 ```
+## 2. TYPES AND CLASSES
 
 ### What are the types of the following values?
 ```
@@ -126,6 +139,8 @@ twice :: (x -> x) -> x -> x
 ```
 ### Why it is not feasible in general for the function types to be instances of the Eq class? When it is feasible? 
 Hint: The functionsof the same type are equal if they always return equal results for equal arguemtns.
+
+## 3. DEFINING FUNCTIONS
 
 ### Using library functions, define a function `halve :: [a] -> ([a], [a])` that splits even-lengthed list into two halves.
 ```
@@ -199,6 +214,8 @@ luhnDouble x | x > 4        = double x - 9
 
 luhn x y z v =  (luhnDouble x + y + luhnDouble z + v)`mod` 10 == 0
 ```
+## 4. LIST COMPREHENSIONS
+
 ### Using a list comprehension, give an expression that clculates the sum of 100 first integer squares.
 ```
 sum [x^2 | x <- [1..100]]
@@ -232,6 +249,8 @@ perfects 500
 scalarproduct x y = sum [a * b | (a, b) <- zip x y]
 scalarproduct [1,2,3] [4,5,6]
 ```
+## 5. RECURSIVE FUNCTIONS
+
 ### How does the recursive version of the factorial function behave if applied to a negative arguments by adding a guard th the recursive case.
 ```
 factorial n | 0 = 1
@@ -291,13 +310,46 @@ concat2 (x:xs) = x ++ concat2 xs
 replicate2 0 _ = []
 replicate2 n x = [x] ++ replicate2 (n-1) x
 ```
-- (!!) :: [a] -> Int -> a
-
 - elem :: Eq a -> a -> [a] -> Bool 
+```
+elem2 y [] = False
+elem2 y (x:xs)  | y == x        = True
+                | otherwise     = elem2 y xs
+```
 ### Define a recursive function `merge :: Ord a -> [a] -> [a] -> [a]` that implements merge sort, so merges two sorted lists
 ```
+merge2 xs [] = xs
+merge2 [] xs = xs
+merge2 (x:xs) (y:ys)    | x <= y    = x : merge2 xs (y:ys)
+                        | otherwise = y : merge2 (x:xs) ys
+<!-- merge2 [1,2,3] [1,23] -->
 ```
 ### Using the five-step process, construct the library functions that:
 - calculate the `sum` of a list of numbers;
+```
+sum2 [] = 0
+sum2 (x:xs) = x + sum2 xs 
+<!-- sum2 [] -->
+<!-- sum2 [1,2,3,7,4] -->
+```
 - `take` a given number of elements from the start of the list;
-- select the `last` element of a non-empty list.
+```
+take2 0 xs = []
+take2 n [] = []
+take2 n (x:xs) = [x] ++ take2 (n-1) xs
+<!-- take2 0 [1,2,3] -->
+<!-- take2 2 [1,2,3] -->
+<!-- take2 2 [] -->
+```
+- select the `last` element of a non-empty list
+```
+last2 [x] = x
+last2 (x:xs) = last2 xs
+<!-- last2 [1] -->
+<!-- last2 [1,2,3] -->
+```
+## 6. HIGHER ORDER FUNCTIONS
+
+## 7. DECLARING TYPES AND CLASSES
+
+## 8. THE COUNTDOWN PROBLEM
