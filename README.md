@@ -61,11 +61,11 @@ ghci - Glasgow Haskell Compiler interactive interpreter
 It is not recommended to use tabs but if someone prefer to do so we should keep in mind that Haskell assumes that tab stops are 8 character wide.
 
 - **Comments**
-```
+```haskell
 -- comment that will be ignored by the compiler
 ```
 
-```
+```haskell
 {-
 nested
 comments
@@ -86,14 +86,14 @@ comments
 - **Double:** double precision floating-point number, it is similar to float except twice as much memory is used for storage of these numbers to increase their precision
 
 - **List:** is the sequence of elements of same type, with the elements being enclosed in square parantheses and separated by commas.
-```
+```haskell
 [True, True, False] :: [Bool]
 ['a', 'b', 'c', 'd'] :: [Char]
 ["One", "Two", "Three"] :: [String]
 [['a', 'b'], ['c', 'd', 'e']] :: [[Char]]
 ```
 - **Tuple:** is a finite sequence of componenetsof possibly different types with the components being enclosed in round parantheses and separated by commas.
-```
+```haskell
 (False, True) :: (Bool, Bool)
 (False, 'a', True) :: (Bool, Char, Bool)
 ('Yes', True, 'a') :: (String, Bool, Char)
@@ -102,7 +102,7 @@ comments
 [('a', False),('b', True)] :: [(Char, Bool)]
 ```
 - **Function types:** is a mapping from arguments of one type to results of another type
-```
+```haskell
 even :: Int -> Bool
 
 add :: (Int, Int) -> Int
@@ -112,7 +112,7 @@ zeroto :: Int -> [Int]
 zeroto n = [0..n]
 ```
 - **Functions that operates on lists**
-```
+```haskell
 head [1,2,3,4,5]
 tail [1,2,3,4,5]
 indexing: [1,2,3,4,5] !! 2
@@ -126,7 +126,7 @@ reverse list: reverse [1,2,3,4,5]
 
 ```
 - **Function application**
-```
+```haskell
 f(x)        ->  f x
 f(x,y)      ->  f x y 
 f(g(x))     ->  f (g x)
@@ -135,24 +135,24 @@ f(x)g(y)    ->  f x * g y
 ```
 
 - **Curried functions:** functions which are free to return functions as result
-```
+```haskell
 add' :: Int -> (Int -> Int)
 add' x y = x + y
 ```
 - **Polymorphic types:** a good example of such type is function `length` which calculates the length of list no matter what type of data is inside. Other examples: fst, head, take, zip, id
-```
+```haskell
 length [1,3,5,7]
 length ["Yes", "No"]
 length [sin, cos, tan]
 ```
 - **Overloaded types:** a good example of such type is operation `+` which calculates sum of any two numbers of the same numeric types
-```
+```haskell
 1 + 2
 1.0 + 2.0
 ``` 
 - **Basic classes:** is a collection of basic classes that are build-in to the language
     1. Eq - equality types:
-    ```
+    ```haskell
     (==) :: a -> a -> Bool
     (/=) :: a -> a -> Bool
 
@@ -160,7 +160,7 @@ length [sin, cos, tan]
     [1,2,3] == [1,2]
     ```
     2. Ord - orderred types
-    ```
+    ```haskell
     (<) :: a -> a -> Bool
     (<=) :: a -> a -> Bool
     (>) :: a -> a -> Bool
@@ -170,7 +170,7 @@ length [sin, cos, tan]
 
     True > False
     "elegant" < "elephant"
-    ```
+    ```haskell
     3. Show - showable types, can be converted from  other types tp string
     ```
     show :: a -> String
@@ -181,13 +181,13 @@ length [sin, cos, tan]
     show ('a', False)
     ```
     4. Read - redable types, can be converted from strings to other types
-    ```
+    ```haskell
     read :: String -> a
     read "False" :: Bool
     read "123" :: Int
     ```
     5. Num - numeric types
-    ```
+    ```haskell
     (+) :: a -> a -> a
     (-) :: a -> a -> a
     (*) :: a -> a -> a
@@ -203,7 +203,7 @@ length [sin, cos, tan]
     signum (-3)
     ```
     6. Integral - integral types, fo integers
-    ```
+    ```haskell
     div :: a -> a -> a
     mod :: a -> a -> a
 
@@ -211,7 +211,7 @@ length [sin, cos, tan]
     7 `mod` 2
     ```
     7. Fractional - fractional types
-    ```
+    ```haskell
     (/) :: a -> a -> a
     recip :: a -> a
     recip -> returns 1 / argument
@@ -220,12 +220,12 @@ length [sin, cos, tan]
     recip 2.0
     ```
 ## 3. Functions
-```
+```haskell
 even :: Integral a -> a -> a Bool
 even n = n 'mod' 2 == 0
 ```
 - **Conditional expressions**
-```
+```haskell
 abs :: Int -> Int
 abs n = if n >= 0 then n else -n
 
@@ -236,7 +236,7 @@ signum n = if n < 0 then -1 else
 
 - **Guarded equations**
 It is an alternative to using conditional expressions, this is a sequence of logical expressions which are used to choose between a sequence of results of the same type.
-```
+```haskell
 abs n | n >= 0  = n
       | otherwise = -n
 
@@ -246,7 +246,7 @@ signum n | n < 0    = -1
 ```
 
 - **Pattern matching**
-```
+```haskell
 not :: Bool -> Bool -> Bool
 not False = True
 not True = False
@@ -261,19 +261,19 @@ True && b = b
 False && _ = False
 ```
 - **Tuple patterns**
-```
+```haskell
 fst :: (a, b) -> a
 fst (x, _) = x
 ```
 - **List patterns**
-```
+```haskell
 test :: [Char] -> Bool
 test ['a', _, _]] = True
 test _ = False
 ```
 - **Lambda expressions**
 (`\` -> lambda)  
-```
+```haskell
 \x = x + x
 (\x = x + x) 2          ### result: 4
 
@@ -287,7 +287,7 @@ odds n = map f [0..n-1]
 odds n = map (\x -> x * 2 + 1) [0 .. n-1]
 ```
 - **Operator sections** it means that function can be formalised  using lambd expression
-```
+```haskell
 (+)     -->     \x -> (\y -> x + y)
 (1+)    -->     \y -> 1 + y
 (1/)    -->     \y -> 1 / y 
@@ -296,7 +296,7 @@ odds n = map (\x -> x * 2 + 1) [0 .. n-1]
 ```
 ## 4. List comprehensions
 It is used to construct new sets from existing sets.
-```
+```haskell
 [x^2 | x <- [1..5]]
 
 [(x,y) | x <- [1,2,3], y <- [4,5]]
@@ -319,7 +319,7 @@ length xs = sum [1 | _ <- xs]
 <!-- length [1, 2, 3] -->
 ```
 - **Guards** list comprehensions can also use logical expressions called `guards`. If the guard is True, then the current values are retained, if it is False then they are discarded.
-```
+```haskell
 factors :: Integral a => a -> [a]
 factors n = [x | x <- [1..n], n `mod` x == 0]
 <!-- factors 8 -->
@@ -337,7 +337,7 @@ find k t = [v | (k', v) <- t, k == k']
 find 'b' [('a',1), ('b', 3), ('c',8), ('b', 9),('a', 3)]
 ```
 - **The zip function** the library function that produces newlist by paring successive elements from two existing lists untill either or both lists are exhausted
-```
+```haskell
 zip ['a', 'b', 'c'] [1,2,3,4]
 
 pairs xs = zip xs (tail xs)
@@ -352,7 +352,7 @@ positions False [True, False, True, False]
 ```
 - **String comprehensions** strings in fact are lists of characters 
 ```'abc' :: String -> ['a','b','c'] :: [Char]```
-```
+```haskell
 "abcde" !! 2
 take 3 "abcde"
 length "abcde"
@@ -368,7 +368,141 @@ count 'x' "abcdex"
 ```ghci cesar.hs```
 
 ## 5. Recursive functions
+Recursion is the basic mechanism for looping in Haskell.
+```haskell
+fac :: Num t => t -> t
+fac 0 = 1
+fac n = n * fac (n -1)
+``` 
+- **Recursion on list**
+```haskell
+product :: Num a => [a] -> a
+product []      = 1
+product (n:ns)  = n * product ns
 
+length :: Num a1 => [a2] -> a1
+length []       = 0
+length (_:xs)   = 1 + length xs 
+
+reverse :: [a] -> [a]
+reverse []  = []
+reverse (x:xs) = reverse xs ++ [x]
+
+concat []     ys = ys
+concat (x:xs) ys = x : (concat xs ys)
+
+insert :: Ord t => t -> [t] -> [t]
+insert x []                 = [x]
+insert x (y:ys) | x <= y    = x : y : ys
+                | otherwise = y : insert x ys
+-- insert 3 [1,2,4,5]
+
+isort :: Ord a => [a] -> [a]
+isort [] = []
+isort (x:xs) = insert x (isort xs)
+-- isort [2,3,4,1]
+```
+- **Multiple arguments**
+```
+zip :: [a] -> [b] -> [(a, b)]
+zip [] _ = []
+zip _ [] = []
+zip (x:xs) (y:ys) = (x,y) : zip xs ys
+
+drop 0 xs = xs
+drop _ [] = []
+drop n (_:xs) = drop (n-1) xs
+```
+- **Multiple recursion**
+```
+fib 0 = 0 
+fib 1 = 1
+fib n = fib (n - 2) + fib (n -1)
+
+qsort [] = []
+qsort (x:xs) = qsort smaller ++ [x] ++ qsort larger
+               where 
+                    smaller = [a | a <- xs, a <- x]
+                    larger = [b | b <- xs, b > x]
+```
+- **Mutual recursion**
+```
+even 0 = True
+even n = odd (n -1)
+
+odd 0 = False
+odd n = even (n -1)
+<!-- even 4 -->
+
+evens [] = []
+evens (x:xs) = x : odds xs
+
+odds [] = []
+odds (x:xs) = x : evens xs
+<!-- evens "abcde" -->
+```
+- **Advice on recursion**
+
+Lets consider example of `product` function
+    
+    1. Define the type
+    ```
+    product :: [Int] -> Int
+    ```
+    2. Enumerate the cases
+    ```
+    product [] =
+    product (n:ns) = 
+    ```
+    3. Define the simple cases
+    ```
+    product [] = 1
+    product (n:ns) = 
+    ```
+    4. Define the other cases
+    ```
+    product [] = 1
+    product (n:ns) = n * product ns
+    ```
+    5. Generalise and simplify
+    ```
+    product :: (Foldable t, Num b) => t b -> b
+    product = foldr (*) 1
+    ```
+Lets consider example of `drop` function
+    
+    1. Define the type
+    ```
+    drop :: Int -> [a] -> [a]
+    ```
+    2. Enumerate the cases
+    ```
+    drop 0 [] = 
+    drop 0 xs =
+    drop n [] =  
+    drop n (x:xs) = 
+    ```
+    3. Define the simple cases
+    ```
+    drop 0 [] = []
+    drop 0 xs = xs 
+    drop n [] =  
+    drop n (x:xs) = 
+    ```
+    4. Define the other cases
+    ```
+    drop 0 [] = []
+    drop 0 xs
+    drop n [] = [] 
+    drop n (x:xs) = drop (n-1) xs
+    ```
+    5. Generalise and simplify
+    ```
+    drop :: Num t1 => t1 -> [a] -> t2
+    drop 0 (x:xs) = (x:xs) 
+    drop n [] = []
+    drop n (x:xs) = drop (n-1) xs
+    ```
 ## 6. Higher-order functions
 
 ## 7. Declaring types and classes

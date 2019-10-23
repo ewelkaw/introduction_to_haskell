@@ -67,7 +67,6 @@ my_last xs = xs !! (length xs -1)
 ```
 TRY BETTER: ```ghci last_implementation.hs ```
 
-
 ### The library function `init` remove the last element of non-empty list; for example: 
 ``` last [1,2,3,4,5] -> [1,2,3,4]``` 
 
@@ -233,3 +232,72 @@ perfects 500
 scalarproduct x y = sum [a * b | (a, b) <- zip x y]
 scalarproduct [1,2,3] [4,5,6]
 ```
+### How does the recursive version of the factorial function behave if applied to a negative arguments by adding a guard th the recursive case.
+```
+factorial n | 0 = 1
+            | n > 0 = n * factorial (n-1)
+```
+### Define a recursive function `sumdown :: Int -> Int` that returns the sum of the non-negative integers from a given value down to zero. For example, `sumdown 3` should return the result `3+2+1+0=6`
+```
+gdci sumdown.hs
+-- sumdown (-1)
+-- sumdown 3
+```
+### Define the exponential operator (^) for non negative integers
+```
+ghci exponential.hs 
+-- exponential 2 3
+-- exponential 2 0
+```
+### Define a recursive function `euclid :: Int -> Int -> Int` which calculates the greatest common divisor of two non-negative integers. If two numbers are equal then this number is a resultm otherwise the smaller number is subtracted from the larger and the process is the repeated
+`https://codility.com/media/train/10-Gcd.pdf`
+```
+ghci greatest_common_divisor.hs 
+-- euclid 6 27
+```
+### Using the recursive definitions given in this chapter, show how `length [1,2,3], drop 3 [1,2,3,4,5], init [1,2,3]` are evaluated.
+- LENGTH
+```
+length2 [] = 0
+length2 (x:xs) = 1 + length2 xs
+```
+- DROP
+```
+drop2 n [] = []
+drop2 0 xs = xs
+drop2 n (x:xs) = drop2 (n-1) xs
+```
+- INIT
+```
+init2 [] = []
+init2 (_:[]) = []
+init2 (x:xs) = [x] ++ init2 xs
+```
+### Without looking at the definitions from the standard prelude, define the following library functions on list using recursion:
+- and :: [Bool] -> Bool
+```
+and2 [] = True
+and2 (x:xs) | x == True    = and2 xs 
+            | otherwise    = False
+```
+- concat :: [[a]] -> [a]
+```
+concat2 [] = []
+concat2 [[]] = []
+concat2 (x:xs) = x ++ concat2 xs
+```
+- replicate :: Int -> a -> [a]
+```
+replicate2 0 _ = []
+replicate2 n x = [x] ++ replicate2 (n-1) x
+```
+- (!!) :: [a] -> Int -> a
+
+- elem :: Eq a -> a -> [a] -> Bool 
+### Define a recursive function `merge :: Ord a -> [a] -> [a] -> [a]` that implements merge sort, so merges two sorted lists
+```
+```
+### Using the five-step process, construct the library functions that:
+- calculate the `sum` of a list of numbers;
+- `take` a given number of elements from the start of the list;
+- select the `last` element of a non-empty list.
