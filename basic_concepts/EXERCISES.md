@@ -349,7 +349,104 @@ last2 (x:xs) = last2 xs
 <!-- last2 [1,2,3] -->
 ```
 ## 6. HIGHER ORDER FUNCTIONS
+### Show how the list comprehension `[f x | x <- xs, p x]` can be re-expressed using higher-order functions map and filter
+```haskell
+map f (filter p xs)
+``` 
+### Without looking at the definitions form the standard prelude, define the following higher-order functions on lists
+```haskell
+all :: (a -> Bool) -> [Bool] -> Bool
 
+-- version1
+all = foldr (&&) True
+all p = and . map p 
+
+f x = (x `mod` 2 == 0)
+-- all f [2,2,2,2]
+-- all f [2,1,2,2]
+
+-- version2
+all2 _ [] = True
+all2 f xs = foldr (\x p -> f x && p) True xs 
+``` 
+```haskell
+any :: (a -> Bool) -> [Bool] -> Bool
+
+-- version1
+any p = or . map p 
+
+-- version2
+any2 _ [] = False
+any2 f xs = foldr (\x p -> f x || p) False xs 
+```
+```haskell
+takeWhile :: (a -> Bool) -> [a] -> [a]
+takeWhile _ [] = [] 
+takeWhile p = filter p
+```
+```haskell
+dropWhile :: (a -> Bool) -> [a] -> [a]
+dropWhile _ [] = []
+dropWhile p xs = filter (not . p) xs
+```
+### Redefine the functions map f and filter p using foldr
+- map f
+```haskell
+map2 f [] = []
+map2 f xs = foldr (\x list -> f(x) : list) [] xs
+-- map2 (+4) [1,2,3]
+```
+- filter p
+```haskell
+filter2 f [] = []
+filter2 f xs = foldr (\x list -> if f(x) then x : list else list) [] xs
+-- filter2 (<5) [1,2,3,7]
+```
+### Using foldl define a function `dec2int :: [Int] -> Int` that converts a decimalnumber into a integer. 
+```haskell
+dec2int [] = []
+dec2int xs = foldl (\n -> (\x -> n ++ show x)) "" xsdec2int [2,3,4,5]
+```
+### Define a higher-order function `curry` that converts  a function on pairs  into a curried function and `uncurry` that converts it back
+- curry
+```haskell
+curry f = \x y -> f (x, y)
+```
+- uncurry
+```haskell
+uncurry f = \(x,y) -> f x y
+```
+### Define a function `altMap :: (a -> b) -> (a -> b) -> [a] -> [b]` that alternately applies tow argument function to succesive  elements in a list in turn about order
+```haskell
+altMap f1 f2 [] = []
+altMap f1 f2 xs = foldl (\list x -> if length(list) `mod` 2 == 0 then list ++ [f1(x)] else list ++ [f2(x)]) [] xs
+-- altMap (+10) (+100) [0,1,2,3,4]
+```
 ## 7. DECLARING TYPES AND CLASSES
+### In a similar manner to the function `add` define a recursive multiplication function `mult :: Nat -> Nat -> Nat` for the recursive type of natural numbers. Make use os add in your definition.
+```haskell
+data Nat = Zero | Succ Nat
+mult :: Nat -> Nat -> Nat 
+mult m Zero = 0
+mult (Succ m) n = add m (mult m n-1)
+```
+### Consider the following types of binary trees:    
+`data Tree a = Leaf a | Node (Tree a) (Tree a)` 
+### Let us say that such tree is balanced in the number of leaves in the left and right subtree of every node differs by at most one, with leaves themselves being trivially balanced. Define a function `balanced :: Tree a -> Bool` that decides if a binary tree is balanced or not. First, define a function that returns the number o leaves in a tree. 
+```haskell
+count_leaves Leaf _     = 1
+count_leaves (Node l r) = count_leaves l + count_leaves r
 
+balanced Leaf _     = True
+balanced (Node l r) =  abs(count_leaves l - count_leaves r) <= 1 && balanced l && balanced r
+```
+# Define a function `balance :: [a] -> Tree a` that converts a non-empty list into a balances tree. First define a function that splits a list into two halves whose length differs by at most one.
+```haskell
+divide_list [] = ([],[])
+divide_list xs = (take (length xs `div` 2) xs, drop (length xs `div` 2) xs)
+
+balance [x]     = Leaf x
+balance xs      = Node (balance ys) (balance zs) 
+                    where (ys, zs) = halve xs
+```
 ## 8. THE COUNTDOWN PROBLEM

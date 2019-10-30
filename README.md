@@ -570,10 +570,13 @@ and (x:xs) = x && or xs
 and = foldr (&&) True
 and xs = foldr (&&) True xs
 
-length = foldr (_ \n -> 1+n) 0
+length2 = foldr (\_ n -> 1+n) 0
 
 snoc x xs = xs ++ [x]
 reverse = foldr snoc []
+
+foldr f v []        = v
+foldr f v (x:xs)    = f x (foldr f v xs)
 ```
 - **The foldl function**
 
@@ -601,16 +604,119 @@ and xs = foldl (&&) True xs
 
 length = foldl (\n _ -> n+1) 0
 reverse = foldl (\xs x -> x:xs) 
+
+foldl f v []    = v
+foldl f v (x:xs) = foldl f (f v x) xs   
 ```
 - **The composition operator**
+
+The higher-order library operator `.` returns the composition of two functions as a single function and can be defined as follows:
+```haskell
+(.) :: (b -> c) -> (a -> b) -> (a -> c)
+f . g = \x -> f (g x)
 ```
+```haskell
+odd n = not (even n)
+odd = not . even
+
+id = \x -> x
+compose = foldr (.) id
 ```
 - **Binary string transmitter**
-```
+
+We will consider the problem of simulating the transmission of a string of characters in low-level form as a list of binary digits: 
+
+`1011 = (1*1) + (0*2) + (4*1) + (8*1)=> 13`
+```haskell
+ghci binary_string_transmitter.hs
+-- bit2int [1,0,1,1]
+-- int2bit 13
+
 ```
 - **Voting algorithms**
+
+We will consider two different algorithms for deciding the winner in an election:
+- first, the simple `first past the post` system, where one person can vote only once
+```haskell
+ghci first_past_the_post.hs
+-- winner votes
 ```
+- second, more refined `alternative vote` system, where one person can vote for as many or as few candidates as they wish
+```haskell
+ghci alternative_vote.hs
+-- winner ballots
 ```
 ## 7. Declaring types and classes
+We will get to know more about declaring new types and classes in Haskell. Name of new types need to begin with capital letter.
+- **Type declarations**
+```haskell
+type Pos = (Int, Int)
+type Pair a = (a, a)
+type Assoc k v = [(k, v)]
 
+-- recursive types are forbidden:
+type Tree = (Int, [Tree])
+```
+- **Data declarations**
+```haskell
+type Pos = (Int, Int)
+data Move = North | South | East | West
+
+move :: Move -> Pos -> Pos
+move North (x,y) = (x, y+1)
+move South (x,y) = (x, y-1)
+move East (x,y) = (x+1, y)
+move West (x,y) = (x-1, y)
+
+moves :: [Move] -> Pos -> Pos
+moves []    p  = p
+moves (m:ms) p = moves ms (move m p)
+
+rev :: Move -> Move
+rev North = South
+rev South = North
+rev East = West
+rev West = East
+```
+- **Newtype declarations**
+
+We can use such mechanism for declaring new type with a single argument.    
+```haskell
+newtype Nat = N Int
+
+-- or
+
+type Nat = Int
+data Nat = N Int
+```
+- **Recursive types**
+```haskell
+data Nat = Zero | Succ Nat
+
+nat2int :: Nat -> Int
+nat2int Zero        = 0
+nat2int (Succ n)    = 1 + nat2int n
+
+int2nat :: Int -> Nat
+int2nat 0 = Zero
+int2nat n = Succ (int2nat (n-1))
+```
+- **Class and instance declarations**
+
+We need to remeber that only types that are delared using data and newtype mechanism can be made into instances of classes. 
+```haskell
+class Eq a where
+    (==), (/=) :: a -> a -> Bool
+    x /= y = not (x == y)
+
+instance Eq Bool where
+    False == False = True
+    True  == True  = True
+    _     == _     = False
+```
+When new types are declared, it is usually appropriate to make them into instances of a number of built-int classes. Haskell provides a simple facility for automatically making new types into instances of the classes Eq, Ord, Show, Read
+```haskell
+data Bool = False | True
+            deriving (Eq, Ord, Show, Read)
+```
 ## 8. The countdown problem
